@@ -1,0 +1,23 @@
+PATH
+  remote: .
+  specs:
+    simple_schedule (0.0.1)
+      rufus-scheduler (~> 3.0.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    concurrent-ruby (1.1.5)
+    rufus-scheduler (3.0.9)
+      tzinfo
+    tzinfo (2.0.0)
+      concurrent-ruby (~> 1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  simple_schedule!
+
+BUNDLED WITH
+   1.17.1
