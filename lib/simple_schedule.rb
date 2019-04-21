@@ -16,6 +16,9 @@ module SimpleSchedule
       end
     end
 
+    Signal.trap('INT') { scheduler.shutdown }
+    Signal.trap('TERM') { scheduler.shutdown }
+
     scheduler.join
   end
 
