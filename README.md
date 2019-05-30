@@ -34,7 +34,7 @@ How you start the schedule is up to you. It's meant to be run in its own process
 so you may want to run your schedule in a long-running rake task that you run
 one and only one of.
 
-Jobs are expected to either respond to the class methods `perform_async` or `perform`,
+Jobs are expected to either respond to the class methods `perform_later` or `perform`,
 or the instance method `perform`. We'll use them in that order, so this will just work
 with ActiveJobs, provided the job takes no arguments.
 

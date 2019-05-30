@@ -5,8 +5,8 @@ module SimpleSchedule
     scheduler = Rufus::Scheduler.new
 
     jobs.each do |type, schedule, job|
-      if job.respond_to?(:perform_async)
-        scheduler.public_send(type, schedule) { job.perform_async }
+      if job.respond_to?(:perform_later)
+        scheduler.public_send(type, schedule) { job.perform_later }
       elsif job.respond_to?(:perform)
         scheduler.public_send(type, schedule) { job.perform }
       elsif job.instance_methods.include?(:perform)
