@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'simple_schedule'
-  s.version     = '0.0.3'
+  s.version     = '0.0.4'
   s.date        = '2018-04-21'
   s.summary     = "A simple scheduler for jobs"
   s.description = "A simple scheduler for jobs built around rufus_scheduler"

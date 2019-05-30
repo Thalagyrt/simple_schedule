@@ -1,4 +1,5 @@
 require 'rufus-scheduler'
+require 'logger'
 
 module SimpleSchedule
   def run
@@ -6,11 +7,20 @@ module SimpleSchedule
 
     jobs.each do |type, schedule, job|
       if job.respond_to?(:perform_later)
-        scheduler.public_send(type, schedule) { job.perform_later }
+        scheduler.public_send(type, schedule) do
+          logger.info { "Enqueueing #{job} to be performed later" }
+          job.perform_later
+        end
       elsif job.respond_to?(:perform)
-        scheduler.public_send(type, schedule) { job.perform }
+        scheduler.public_send(type, schedule) do
+          logger.info { "Performing #{job} synchronously" }
+          job.perform
+        end
       elsif job.instance_methods.include?(:perform)
-        scheduler.public_send(type, schedule) { job.new.perform }
+        scheduler.public_send(type, schedule) do
+          logger.info { "Performing #{job} synchronously" }
+          job.new.perform
+        end
       else
         raise ArgumentError.new("Job #{job} does not respond to #{job}.perform_async, #{job}.perform, or #{job}#perform")
       end
@@ -23,6 +33,10 @@ module SimpleSchedule
   end
 
   private
+
+  def logger
+    @logger ||= defined?(Rails) ? Rails.logger : Logger.new(STDOUT)
+  end
 
   def jobs
     @jobs ||= []
